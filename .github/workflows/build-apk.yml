@@ -16,7 +16,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
+
+      - name: Force stable npm
+        run: |
+          npm install -g npm@10.9.2
+          npm --version
+          node --version
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -28,7 +34,10 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          rm -rf node_modules package-lock.json ~/.npm/_cacache
+          npm install --no-audit --no-fund --legacy-peer-deps
 
       - name: Build web app
         run: npm run build
