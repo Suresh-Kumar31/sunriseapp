@@ -2,38 +2,20 @@
 
 Offline sunrise/sunset alarm app built with Vue 3 + Capacitor.
 
-## What it does
+## Expected UI
 
-- Calculates sunrise and sunset offline using latitude, longitude, and date.
-- Saves GPS/manual location locally.
-- Shows next 7 days sunrise/sunset.
-- Schedules local Android notifications before sunrise/sunset.
+After the splash/logo screen, the app should show:
 
-## Local web preview
+- Orange/yellow header titled **Sun Alarm**
+- Today's sunrise and sunset cards
+- Location section with GPS button and latitude/longitude fields
+- Alarm settings for sunrise/sunset and minutes before event
+- Next 7 days sunrise/sunset table
 
-```bash
-npm install
-npm run dev
-```
+## Important fix
 
-## Local APK build, only if Android tools are installed
-
-```bash
-npm install
-npm run build
-npx cap add android
-npx cap sync android
-cd android
-./gradlew assembleDebug
-```
-
-APK path:
-
-```text
-android/app/build/outputs/apk/debug/app-debug.apk
-```
+`vite.config.js` uses `base: './'`. This is required for Capacitor APK builds so Android WebView can load bundled JS/CSS correctly.
 
 ## Cloud APK build using GitHub Actions
 
 Push this repo to GitHub. The workflow will generate a debug APK artifact.
-
